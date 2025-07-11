@@ -1,0 +1,59 @@
+Create a full-stack application using Vite React for the frontend and Python for the backend.
+
+**Project Structure:**
+
+The root project directory should contain the Vite React application. Inside this root directory, there must be a subfolder named `server` which will contain the Python backend.
+
+Example structure:
+my-timestamp-app/
+├── src/
+├── public/
+├── index.html
+├── package.json
+├── vite.config.js
+├── server/
+│   ├── app.py
+│   ├── requirements.txt
+└── ... (other Vite React files)
+
+
+**Frontend (Vite React App):**
+
+1.  **Initialization:** Create a standard Vite React project.
+2.  **`index.html`:** Keep it minimal, just serving the React app.
+3.  **`src/App.jsx`:**
+    * Display a clear title, e.g., "Current Timestamp App".
+    * Show the fetched timestamp in a prominent way (e.g., a `div` or `p` tag). Initially, it can display "Loading..." or "Timestamp not available".
+    * Include a button labeled "Get Latest Timestamp".
+    * **Functionality:**
+        * On initial page load, automatically fetch the timestamp from the backend and display it.
+        * When the "Get Latest Timestamp" button is clicked, fetch the timestamp from the backend again and update the display.
+        * Use the `fetch` API to make a GET request to the backend endpoint `/api/timestamp`.
+        * Handle potential errors during the fetch request and display a user-friendly message if the timestamp cannot be retrieved.
+        * Ensure the frontend is responsive and looks clean using basic Tailwind CSS classes (Tailwind CSS is assumed to be available).
+
+**Backend (Python - in `server` folder):**
+
+1.  **Framework:** Use Flask for the Python backend.
+2.  **`server/app.py`:**
+    * Import necessary Flask modules (`Flask`, `jsonify`, `request`).
+    * Initialize the Flask app.
+    * Implement CORS (Cross-Origin Resource Sharing) to allow the React frontend to make requests. Use `Flask-CORS` if possible, otherwise, manually add CORS headers to the response.
+    * Create a single GET endpoint: `/api/timestamp`.
+    * This endpoint should:
+        * Get the current UTC timestamp.
+        * Format the timestamp as a human-readable string (e.g., "YYYY-MM-DD HH:MM:SS UTC").
+        * Return the timestamp as a JSON object, with a key like `timestamp`.
+        * Example JSON response: `{"timestamp": "2025-07-12 06:30:00 UTC"}`.
+3.  **`server/requirements.txt`:**
+    * List `Flask` and `Flask-CORS` (if used) as dependencies.
+
+**Instructions for AI Tool (Replit Specific):**
+
+* **No Dockerfiles or complex deployment configurations.** The application should be runnable directly within the Replit environment.
+* **No databases.** The timestamp should be generated dynamically on each request.
+* **Keep it simple.** Do not add authentication, advanced state management, or complex routing. Focus solely on the requested timestamp functionality.
+* **Provide clear comments** in both the React and Python code to explain the logic.
+* **Ensure the Python server runs on port 5000** and the React app is configured to proxy API requests to this port if necessary (or make direct requests if CORS is handled).
+* **Make sure the `package.json` includes a script to start the Vite development server.**
+* **Make sure the `app.py` includes a `if __name__ == '__main__':` block to run the Flask app.**
