@@ -64,5 +64,5 @@ def internal_error(error):
 if __name__ == '__main__':
     # Run the Flask app
     # Bind to 0.0.0.0 to make it accessible from outside the container
-    # Use port 5000 as specified in the requirements
-    app.run(host='0.0.0.0', port=5000, debug=True)
+    # Use port 5001 to avoid conflicts with the proxy server
+    app.run(host='0.0.0.0', port=5001, debug=True)
