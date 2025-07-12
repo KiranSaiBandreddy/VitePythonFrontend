@@ -4,7 +4,7 @@ import { spawn } from 'child_process';
 import path from 'path';
 
 const app = express();
-const port = 3000;
+const port = 5000;
 
 // Start Python Flask server
 const pythonServer = spawn('python', ['app.py'], {
@@ -28,6 +28,7 @@ setTimeout(() => {
     changeOrigin: true,
     onError: (err, req, res) => {
       console.error('Proxy error:', err);
+      res.status(500).json({ error: 'Backend server unavailable' });
     }
   }));
 
