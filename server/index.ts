@@ -1,30 +1,35 @@
-// Simple proxy to start Python Flask server
-import { spawn } from 'child_process';
-import path from 'path';
+// Simple wrapper to run Python Flask server
+import { exec } from 'child_process';
+import { fileURLToPath } from 'url';
+import { dirname, join } from 'path';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
 console.log('[server] Starting Python Flask server...');
 
-// Start Python Flask server
-const pythonServer = spawn('python', ['app.py'], {
-  cwd: path.join(process.cwd(), 'server'),
-  stdio: 'inherit'
+const pythonProcess = exec('python app.py', {
+  cwd: __dirname
 });
 
-pythonServer.on('error', (err) => {
-  console.error('[server] Failed to start Python server:', err);
-  process.exit(1);
+pythonProcess.stdout?.on('data', (data) => {
+  console.log(`[python] ${data.toString().trim()}`);
 });
 
-pythonServer.on('exit', (code) => {
-  console.log(`[server] Python server exited with code ${code}`);
+pythonProcess.stderr?.on('data', (data) => {
+  console.log(`[python] ${data.toString().trim()}`);
+});
+
+pythonProcess.on('exit', (code) => {
+  console.log(`[python] Process exited with code ${code}`);
   process.exit(code || 0);
 });
 
 // Handle graceful shutdown
 process.on('SIGTERM', () => {
-  pythonServer.kill('SIGTERM');
+  pythonProcess.kill('SIGTERM');
 });
 
 process.on('SIGINT', () => {
-  pythonServer.kill('SIGINT');
+  pythonProcess.kill('SIGINT');
 });
