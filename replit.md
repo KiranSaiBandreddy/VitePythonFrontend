@@ -2,7 +2,7 @@
 
 ## Overview
 
-This is a full-stack web application built with a React frontend and Node.js/Express backend. The application appears to be a timestamp service that displays the current UTC time to users. It features a modern UI built with shadcn/ui components, uses Drizzle ORM for database operations with PostgreSQL, and includes both Python Flask and Node.js Express server implementations.
+This is a full-stack timestamp application built with a React frontend and Python Flask backend. The application displays the current UTC timestamp to users with a clean, responsive interface built with Tailwind CSS. The backend is implemented in Python Flask serving both the API endpoints and static frontend files.
 
 ## User Preferences
 
@@ -13,20 +13,17 @@ Preferred communication style: Simple, everyday language.
 ### Frontend Architecture
 - **Framework**: React 18 with TypeScript
 - **Build Tool**: Vite for fast development and optimized builds
-- **Routing**: Wouter for lightweight client-side routing
-- **State Management**: TanStack Query (React Query) for server state management
-- **UI Components**: shadcn/ui component library built on Radix UI primitives
-- **Styling**: Tailwind CSS with CSS custom properties for theming
-- **Form Handling**: React Hook Form with Zod validation
+- **Styling**: Tailwind CSS for responsive design
+- **State Management**: React hooks (useState, useEffect) for local state
+- **API Communication**: Native fetch API for backend communication
+- **UI Features**: Loading states, error handling, responsive design
 
 ### Backend Architecture
-- **Dual Server Setup**: 
-  - Primary: Node.js with Express TypeScript server
-  - Secondary: Python Flask server (appears to be legacy/alternative implementation)
-- **Database**: PostgreSQL with Drizzle ORM
-- **Database Provider**: Neon Database (serverless PostgreSQL)
-- **API Pattern**: RESTful API with `/api` prefix
-- **Session Management**: PostgreSQL-based session store
+- **Server**: Python Flask server serving both API and static files
+- **API Endpoints**: `/api/timestamp` - returns current UTC timestamp
+- **Static File Serving**: Serves React app from `/client/dist/`
+- **CORS Configuration**: Enabled for frontend-backend communication
+- **Error Handling**: Comprehensive error handling with JSON responses
 
 ### Build and Development
 - **Development**: Vite dev server with HMR for frontend, tsx for backend TypeScript execution

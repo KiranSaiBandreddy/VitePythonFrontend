@@ -1,13 +1,35 @@
-from flask import Flask, jsonify
+from flask import Flask, jsonify, send_from_directory, send_file
 from flask_cors import CORS
 from datetime import datetime
 import pytz
+import os
 
 # Initialize Flask app
 app = Flask(__name__)
 
 # Enable CORS to allow requests from the React frontend
 CORS(app, origins=['http://localhost:5173', 'http://127.0.0.1:5173', 'http://localhost:5000', 'http://127.0.0.1:5000'])
+
+# Serve static files from the client dist directory
+@app.route('/')
+def serve_index():
+    """Serve the React app's index.html file"""
+    try:
+        return send_file('../client/dist/index.html')
+    except FileNotFoundError:
+        return jsonify({"error": "Frontend not built. Run 'npm run build' first."}), 404
+
+@app.route('/<path:path>')
+def serve_static(path):
+    """Serve static assets from the client dist directory"""
+    try:
+        return send_from_directory('../client/dist', path)
+    except FileNotFoundError:
+        # If file not found, serve index.html for client-side routing
+        try:
+            return send_file('../client/dist/index.html')
+        except FileNotFoundError:
+            return jsonify({"error": "Frontend not built. Run 'npm run build' first."}), 404
 
 @app.route('/api/timestamp', methods=['GET'])
 def get_timestamp():
@@ -64,5 +86,5 @@ def internal_error(error):
 if __name__ == '__main__':
     # Run the Flask app
     # Bind to 0.0.0.0 to make it accessible from outside the container
-    # Use port 5001 to avoid conflicts with the proxy server
-    app.run(host='0.0.0.0', port=5001, debug=True)
+    # Use port 5000 as specified in the requirements
+    app.run(host='0.0.0.0', port=5000, debug=True)
