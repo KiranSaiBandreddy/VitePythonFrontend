@@ -24,7 +24,6 @@ Preferred communication style: Simple, everyday language.
 - **Static File Serving**: Serves React app from `/client/dist/`
 - **CORS Configuration**: Enabled for frontend-backend communication
 - **Error Handling**: Comprehensive error handling with JSON responses
-- **Startup**: Minimal TypeScript wrapper (`server/index.ts`) that directly spawns Python server
 
 ### Build and Development
 - **Development**: Vite dev server with HMR for frontend, tsx for backend TypeScript execution
