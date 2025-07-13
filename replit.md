@@ -39,10 +39,9 @@ Preferred communication style: Simple, everyday language.
 - **Query Client**: Configured TanStack Query with custom fetch functions and error handling
 
 ### Backend Components
-- **Express Server** (`server/index.ts`): Main server with middleware setup, logging, and Vite integration
-- **Routes** (`server/routes.ts`): API route definitions (currently minimal)
-- **Storage Layer** (`server/storage.ts`): Database abstraction with in-memory implementation for users
-- **Flask Server** (`server/app.py`): Alternative Python implementation with timestamp endpoint
+- **Flask Server** (`server/app.py`): Main Python Flask server with timestamp endpoint and static file serving
+- **Routes** (`server/routes.ts`): Legacy API route definitions (not used)
+- **Storage Layer** (`server/storage.ts`): Legacy database abstraction (not used)
 
 ### Database Schema
 - **Users Table**: Basic user management with username/password fields
@@ -50,11 +49,9 @@ Preferred communication style: Simple, everyday language.
 
 ## Data Flow
 
-1. **Frontend Request**: React components use TanStack Query to fetch data
-2. **API Layer**: Express server handles requests at `/api/*` endpoints
-3. **Storage Layer**: Storage interface abstracts database operations
-4. **Database**: PostgreSQL with Drizzle ORM for type-safe queries
-5. **Response**: JSON responses with proper error handling
+1. **Frontend Request**: React components use native fetch API to request data
+2. **API Layer**: Flask server handles requests at `/api/*` endpoints
+3. **Response**: JSON responses with proper error handling and CORS configuration
 
 ### Timestamp Feature Flow
 - User loads home page → automatic timestamp fetch → display current UTC time
