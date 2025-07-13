@@ -10,24 +10,24 @@ app = Flask(__name__)
 # Enable CORS to allow requests from the React frontend
 CORS(app, origins=['http://localhost:5173', 'http://127.0.0.1:5173', 'http://localhost:5000', 'http://127.0.0.1:5000'])
 
-# Serve static files from the client dist directory
+# Serve static files from the built frontend directory
 @app.route('/')
 def serve_index():
     """Serve the React app's index.html file"""
     try:
-        return send_file('../client/dist/index.html')
+        return send_file('../dist/public/index.html')
     except FileNotFoundError:
         return jsonify({"error": "Frontend not built. Run 'npm run build' first."}), 404
 
 @app.route('/<path:path>')
 def serve_static(path):
-    """Serve static assets from the client dist directory"""
+    """Serve static assets from the built frontend directory"""
     try:
-        return send_from_directory('../client/dist', path)
+        return send_from_directory('../dist/public', path)
     except FileNotFoundError:
         # If file not found, serve index.html for client-side routing
         try:
-            return send_file('../client/dist/index.html')
+            return send_file('../dist/public/index.html')
         except FileNotFoundError:
             return jsonify({"error": "Frontend not built. Run 'npm run build' first."}), 404
 
